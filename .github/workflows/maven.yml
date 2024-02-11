@@ -2,10 +2,6 @@ name: Build and Release Plugin
 
 on:
   push:
-    branches:
-      - master
-    tags:
-      - "v*.*.*"
   pull_request:
 
 jobs:
@@ -31,7 +27,7 @@ jobs:
         mvn --version
 
     - name: Build with Maven
-      run: mvn -D"http.keepAlive=false" -D"maven.wagon.http.pool=false" -D"maven.wagon.httpconnectionManager.ttlSeconds=120" -DskipTests=true -B -V clean package
+      run: mvn -B install --file pom.xml
 
     - name: Create Release
       id: create_release
